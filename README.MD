@@ -1,8 +1,8 @@
-= Diffusion en temps discret (DDPM, DDIM uniquement)
+=Diffusion en temps discret (DDPM, DDIM uniquement)
 
-== DDPM minimal sur MNIST + trajectoires de débruitage
+==DDPM minimal sur MNIST + trajectoires de débruitage
 
-=== Implémenter un DDPM (prédiction du bruit (\epsilon)) sur MNIST. Visualiser le forward noising et le reverse denoising étape par étape, puis générer des échantillons. Tester 1–2 schedules simples (linéaire) et montrer l’effet du nombre de pas sur la qualité.
+===Implémenter un DDPM (prédiction du bruit (\epsilon)) sur MNIST. Visualiser le forward noising et le reverse denoising étape par étape, puis générer des échantillons. Tester 1–2 schedules simples (linéaire) et montrer l’effet du nombre de pas sur la qualité.
 
 Objectifs:
 
