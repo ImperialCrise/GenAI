@@ -1,0 +1,15 @@
+[project]
+name = "genai"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "ipykernel>=7.1.0",
+    "ipython>=8.38.0",
+    "matplotlib>=3.10.8",
+    "numpy>=2.2.6",
+    "pip>=25.3",
+    "torch>=2.10.0",
+    "torchvision>=0.25.0",
+]
