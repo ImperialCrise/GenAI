@@ -25,7 +25,7 @@ class ForwardDiffusion:
             timesteps: Number of diffusion steps T
             beta_start: Starting value of beta (variance schedule)
             beta_end: Ending value of beta
-            device: Device to run on ('cuda' or 'cpu')
+            device: Device to run on ('cuda', 'mps', or 'cpu')
         """
         self.timesteps = timesteps
         self.device = device

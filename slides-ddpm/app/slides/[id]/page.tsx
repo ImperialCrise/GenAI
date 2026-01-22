@@ -1,6 +1,3 @@
-"use client";
-
-import { useParams } from "next/navigation";
 import SlideContainer from "@/components/SlideContainer";
 import Slide01Intro from "@/lib/slides/01-intro";
 import Slide02Motivation from "@/lib/slides/02-motivation";
@@ -14,6 +11,7 @@ import Slide09VizReverse from "@/lib/slides/09-viz-reverse";
 import Slide10Results from "@/lib/slides/10-results";
 import Slide11Comparison from "@/lib/slides/11-comparison";
 import Slide12Merci from "@/lib/slides/12-merci";
+import { TOTAL_SLIDES } from "@/lib/slides-config";
 
 const SLIDE_COMPONENTS: Record<number, React.ComponentType> = {
   1: Slide01Intro,
@@ -30,9 +28,19 @@ const SLIDE_COMPONENTS: Record<number, React.ComponentType> = {
   12: Slide12Merci,
 };
 
-export default function SlidePage() {
-  const params = useParams();
-  const slideId = parseInt(params.id as string, 10);
+export function generateStaticParams() {
+  return Array.from({ length: TOTAL_SLIDES }, (_, i) => ({
+    id: String(i + 1),
+  }));
+}
+
+interface PageProps {
+  params: Promise<{ id: string }>;
+}
+
+export default async function SlidePage({ params }: PageProps) {
+  const { id } = await params;
+  const slideId = parseInt(id, 10);
 
   const SlideComponent = SLIDE_COMPONENTS[slideId];
 
