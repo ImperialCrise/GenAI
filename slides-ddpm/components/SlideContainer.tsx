@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useCallback, ReactNode } from "react";
+import { useEffect, useCallback, ReactNode, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { TOTAL_SLIDES } from "@/lib/slides-config";
@@ -12,6 +12,16 @@ interface SlideContainerProps {
 
 export default function SlideContainer({ children, slideNumber }: SlideContainerProps) {
   const router = useRouter();
+  const [scale, setScale] = useState(1);
+
+  const handleResize = useCallback(() => {
+    const targetWidth = 1920;
+    const targetHeight = 1080;
+    const widthScale = window.innerWidth / targetWidth;
+    const heightScale = window.innerHeight / targetHeight;
+    // On scale selon la contrainte la plus forte pour ne jamais déborder
+    setScale(Math.min(widthScale, heightScale));
+  }, []);
 
   const navigate = useCallback(
     (direction: "prev" | "next") => {
@@ -25,6 +35,9 @@ export default function SlideContainer({ children, slideNumber }: SlideContainer
   );
 
   useEffect(() => {
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight" || e.key === " ") {
         e.preventDefault();
@@ -36,25 +49,40 @@ export default function SlideContainer({ children, slideNumber }: SlideContainer
     };
 
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [navigate]);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [navigate, handleResize]);
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden bg-neon-bg">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={slideNumber}
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -50 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          className="w-full h-full flex flex-col"
-        >
-          {children}
-        </motion.div>
-      </AnimatePresence>
+    <div className="relative w-screen h-screen overflow-hidden bg-neon-bg flex items-center justify-center">
+      {/* Wrapper de scaling 16:9 */}
+      <div 
+        style={{ 
+          transform: `scale(${scale})`,
+          transformOrigin: "center center",
+          width: "1920px",
+          height: "1080px",
+          flexShrink: 0
+        }}
+        className="relative shadow-2xl overflow-hidden flex flex-col"
+      >
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={slideNumber}
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -50 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="w-full h-full flex flex-col p-16"
+          >
+            {children}
+          </motion.div>
+        </AnimatePresence>
+      </div>
 
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-4">
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-4 z-50">
         <div className="flex gap-2">
           {Array.from({ length: TOTAL_SLIDES }, (_, i) => (
             <motion.div
