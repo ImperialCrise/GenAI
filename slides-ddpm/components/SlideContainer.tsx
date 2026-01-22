@@ -3,7 +3,8 @@
 import { useEffect, useCallback, ReactNode, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { TOTAL_SLIDES } from "@/lib/slides-config";
+import { TOTAL_SLIDES, SLIDES } from "../lib/slides-config";
+import ParticleBackground from "./ParticleBackground";
 
 interface SlideContainerProps {
   children: ReactNode;
@@ -13,13 +14,14 @@ interface SlideContainerProps {
 export default function SlideContainer({ children, slideNumber }: SlideContainerProps) {
   const router = useRouter();
   const [scale, setScale] = useState(1);
+  const currentSlide = SLIDES.find(s => s.id === slideNumber);
 
   const handleResize = useCallback(() => {
-    const targetWidth = 1920;
-    const targetHeight = 1080;
+    // Base de conception plus compacte pour forcer un zoom naturel sur le texte
+    const targetWidth = 1280;
+    const targetHeight = 720;
     const widthScale = window.innerWidth / targetWidth;
     const heightScale = window.innerHeight / targetHeight;
-    // On scale selon la contrainte la plus forte pour ne jamais déborder
     setScale(Math.min(widthScale, heightScale));
   }, []);
 
@@ -57,16 +59,22 @@ export default function SlideContainer({ children, slideNumber }: SlideContainer
 
   return (
     <div className="relative w-screen h-screen overflow-hidden bg-neon-bg flex items-center justify-center">
-      {/* Wrapper de scaling 16:9 */}
+      {/* Background toujours en full screen réel */}
+      <ParticleBackground 
+        intensity={currentSlide?.bgIntensity || 100} 
+        color={currentSlide?.bgColor || "#00f0ff"} 
+      />
+
+      {/* Wrapper de scaling intelligent */}
       <div 
         style={{ 
           transform: `scale(${scale})`,
           transformOrigin: "center center",
-          width: "1920px",
-          height: "1080px",
+          width: "1280px",
+          height: "720px",
           flexShrink: 0
         }}
-        className="relative shadow-2xl overflow-hidden flex flex-col"
+        className="relative z-10 overflow-hidden flex flex-col"
       >
         <AnimatePresence mode="wait">
           <motion.div
@@ -75,14 +83,42 @@ export default function SlideContainer({ children, slideNumber }: SlideContainer
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -50 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
-            className="w-full h-full flex flex-col p-10"
+            className="w-full h-full flex flex-col p-8"
           >
             {children}
           </motion.div>
         </AnimatePresence>
       </div>
 
+      {/* UI Navigation - Fixe sur l'écran réel */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-4 z-50">
+        <div className="flex gap-2">
+          {Array.from({ length: TOTAL_SLIDES }, (_, i) => (
+            <motion.div
+              key={i}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                i + 1 === slideNumber
+                  ? "bg-neon-primary shadow-neon-cyan scale-125"
+                  : i + 1 < slideNumber
+                  ? "bg-neon-primary/50"
+                  : "bg-neon-muted/30"
+              }`}
+              whileHover={{ scale: 1.5 }}
+            />
+          ))}
+        </div>
+        <span className="text-neon-muted text-sm font-mono">
+          {slideNumber} / {TOTAL_SLIDES}
+        </span>
+      </div>
+
+      <div className="absolute bottom-6 right-6 text-neon-muted/50 text-xs hidden sm:block">
+        ← → pour naviguer
+      </div>
+    </div>
+  );
+}
+
         <div className="flex gap-2">
           {Array.from({ length: TOTAL_SLIDES }, (_, i) => (
             <motion.div

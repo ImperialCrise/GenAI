@@ -16,7 +16,6 @@ export default function Slide12Merci() {
 
   return (
     <div className="relative flex-1 flex flex-col items-center justify-center overflow-hidden">
-      <ParticleBackground intensity={200} color="#ff00aa" />
 
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}

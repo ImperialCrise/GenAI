@@ -24,7 +24,6 @@ export default function Slide07Training() {
 
   return (
     <div className="relative flex-1 flex flex-col p-8 overflow-hidden">
-      <ParticleBackground intensity={60} color="#8b5cf6" />
 
       <motion.h2
         initial={{ opacity: 0, x: -50 }}

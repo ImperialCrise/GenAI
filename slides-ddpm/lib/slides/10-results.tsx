@@ -13,7 +13,6 @@ export default function Slide10Results() {
 
   return (
     <div className="relative flex-1 flex flex-col p-8 overflow-hidden">
-      <ParticleBackground intensity={80} color="#00f0ff" />
 
       <motion.h2
         initial={{ opacity: 0, x: -50 }}

@@ -8,7 +8,6 @@ import { TEAM_MEMBERS } from "@/lib/slides-config";
 export default function Slide01Intro() {
   return (
     <div className="relative flex-1 flex flex-col items-center justify-center overflow-hidden">
-      <ParticleBackground intensity={150} color="#00f0ff" />
       
       <div className="relative z-10 text-center">
         <motion.div
