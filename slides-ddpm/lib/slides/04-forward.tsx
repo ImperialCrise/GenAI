@@ -49,7 +49,7 @@ export default function SlideForward() {
           </NeonCard>
 
           <NeonCard title="Définitions" glow="cyan" className="flex-1">
-            <div className="space-y-6 flex flex-col justify-center h-full pt-4">
+            <div className="space-y-4 flex flex-col justify-center h-full pt-4 pb-2">
               <FormulaBlock formula="\alpha_t = 1 - \beta_t" />
               <FormulaBlock formula="\bar{\alpha}_t = \prod_{s=1}^t \alpha_s" />
             </div>

@@ -36,7 +36,7 @@ export default function NeonCard({
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay, duration: 0.5, ease: "easeOut" }}
       className={`
-        bg-neon-bg/80 backdrop-blur-md rounded-xl border-2 p-6 relative
+        bg-neon-bg/80 backdrop-blur-md rounded-xl border-2 p-8 relative overflow-hidden
         ${glowColors[glow]}
         ${className}
       `}

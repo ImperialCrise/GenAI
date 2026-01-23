@@ -45,20 +45,22 @@ export default function Slide07Training() {
       <div className="relative z-10 flex-1 grid grid-cols-2 gap-8">
         <div className="space-y-6">
           <NeonCard delay={0.3} glow="violet">
-            <h3 className="text-neon-accent font-display font-bold mb-4">
+            <h3 className="text-neon-accent font-display font-bold mb-6">
               Objective
             </h3>
-            <FormulaBlock
-              formula="L_{simple} = \mathbb{E}_{t, x_0, \epsilon}\left[ \| \epsilon - \epsilon_\theta(x_t, t) \|^2 \right]"
-              delay={0.5}
-            />
+            <div className="pb-2">
+              <FormulaBlock
+                formula="L_{simple} = \mathbb{E}_{t, x_0, \epsilon}\left[ \| \epsilon - \epsilon_\theta(x_t, t) \|^2 \right]"
+                delay={0.5}
+              />
+            </div>
             <p className="text-neon-muted text-sm mt-4">
               Le modèle apprend à prédire le bruit ajouté
             </p>
           </NeonCard>
 
           <NeonCard delay={0.7} glow="cyan">
-            <h3 className="text-neon-primary font-display font-bold mb-4">
+            <h3 className="text-neon-primary font-display font-bold mb-6">
               Hyperparamètres
             </h3>
             <div className="grid grid-cols-2 gap-4">
@@ -79,7 +81,7 @@ export default function Slide07Training() {
         </div>
 
         <NeonCard delay={0.4} glow="magenta" className="h-fit">
-          <h3 className="text-neon-secondary font-display font-bold mb-4">
+          <h3 className="text-neon-secondary font-display font-bold mb-6">
             Boucle d&apos;entraînement
           </h3>
           <div className="space-y-3">

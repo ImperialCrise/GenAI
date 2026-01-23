@@ -93,7 +93,7 @@ export default function Slide11Comparison() {
             Distribution des classes générées
           </h3>
           
-          <div className="flex-1 overflow-y-auto pr-2 space-y-1 custom-scrollbar">
+          <div className="flex-1 min-h-0 flex flex-col justify-between space-y-0.5 pr-2">
             {classDistribution.map((item, i) => (
               <AnimatedBar
                 key={item.digit}

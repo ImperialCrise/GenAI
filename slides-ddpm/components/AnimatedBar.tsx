@@ -21,8 +21,8 @@ export default function AnimatedBar({
 
   return (
     <div className="flex items-center gap-4">
-      <span className="w-8 text-right text-neon-text font-mono">{label}</span>
-      <div className="flex-1 h-8 bg-neon-bg border border-neon-primary/30 rounded overflow-hidden">
+      <span className="w-8 text-right text-neon-text font-mono text-xs">{label}</span>
+      <div className="flex-1 h-5 bg-neon-bg border border-neon-primary/30 rounded overflow-hidden">
         <motion.div
           className="h-full rounded"
           style={{ backgroundColor: color }}
@@ -32,7 +32,7 @@ export default function AnimatedBar({
         />
       </div>
       <motion.span
-        className="w-12 text-neon-text font-mono text-sm"
+        className="w-12 text-neon-text font-mono text-xs"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: delay + 0.5 }}

@@ -27,29 +27,33 @@ export default function Slide06Reverse() {
       </motion.p>
 
       <div className="relative z-10 flex-1 grid grid-cols-2 gap-8">
-        <div className="space-y-6">
+        <div className="space-y-8">
           <NeonCard delay={0.4} glow="magenta">
             <h3 className="text-neon-secondary font-display font-bold mb-4">
               Distribution apprise
             </h3>
-            <FormulaBlock
-              formula="p_\theta(x_{t-1}|x_t) = \mathcal{N}(x_{t-1}; \mu_\theta(x_t, t), \sigma_t^2 \mathbf{I})"
-              delay={0.6}
-            />
+            <div className="pb-2">
+              <FormulaBlock
+                formula="p_\theta(x_{t-1}|x_t) = \mathcal{N}(x_{t-1}; \mu_\theta(x_t, t), \sigma_t^2 \mathbf{I})"
+                delay={0.6}
+              />
+            </div>
           </NeonCard>
 
           <NeonCard delay={0.8} glow="cyan">
             <h3 className="text-neon-primary font-display font-bold mb-4">
               Calcul de μ_θ
             </h3>
-            <FormulaBlock
-              formula="\mu_\theta = \frac{1}{\sqrt{\alpha_t}} \left( x_t - \frac{\beta_t}{\sqrt{1-\bar{\alpha}_t}} \epsilon_\theta(x_t, t) \right)"
-              delay={1}
-            />
+            <div className="pb-2">
+              <FormulaBlock
+                formula="\mu_\theta = \frac{1}{\sqrt{\alpha_t}} \left( x_t - \frac{\beta_t}{\sqrt{1-\bar{\alpha}_t}} \epsilon_\theta(x_t, t) \right)"
+                delay={1}
+              />
+            </div>
           </NeonCard>
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-8">
           <NeonCard delay={1.2} glow="violet">
             <h3 className="text-neon-accent font-display font-bold mb-4">
               Algorithme de sampling
